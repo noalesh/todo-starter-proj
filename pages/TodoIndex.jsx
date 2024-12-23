@@ -6,22 +6,33 @@ import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
+const { useSelector, useDispatch } = ReactRedux
 
 export function TodoIndex() {
 
-    const [todos, setTodos] = useState(null)
+    // instead of local state, we modify the app to work with a store.
+    // There is no more need to use useState :
+    // const [todos, setTodos] = useState(null)
+    // const [filterBy, setFilterBy] = useState(defaultFilter)
+    const todos = useSelector(storeState => storeState.todoModule.todos)
+    const isLoading = useSelector(storeState => storeState.todoModule.isLoading)
+    const filterBy = useSelector(storeState => storeState.todoModule.filterBy)
+    const dispatch = useDispatch()
 
     // Special hook for accessing search-params:
     const [searchParams, setSearchParams] = useSearchParams()
 
     const defaultFilter = todoService.getFilterFromSearchParams(searchParams)
 
-    const [filterBy, setFilterBy] = useState(defaultFilter)
-
     useEffect(() => {
         setSearchParams(filterBy)
         todoService.query(filterBy)
-            .then(todos => setTodos(todos))
+            .then(
+                // instaed of local state, we have a store, so no need for 
+                // todos => setTodos(todos))
+                // instead - we're gonna use dispatch
+                todos => {dispatch({ type: SET_TODOS, todos })}
+            )
             .catch(err => {
                 console.eror('err:', err)
                 showErrorMsg('Cannot load todos')
