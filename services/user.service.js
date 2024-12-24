@@ -31,9 +31,13 @@ function login({ username, password }) {
 }
 
 function signup({ username, password, fullname }) {
+
+    // maybe TODO - prevent signup with an already existing username ?? 
+
     const user = { username, password, fullname }
     user.createdAt = user.updatedAt = Date.now()
 
+    // note to self: inside 'post' we assign the user a new id.
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)
 }
@@ -58,6 +62,8 @@ function getEmptyCredentials() {
         fullname: '',
         username: 'muki',
         password: 'muki1',
+        balance: '',
+        activities: ''
     }
 }
 
@@ -71,5 +77,7 @@ function getEmptyCredentials() {
 //     password: "muki1",
 //     fullname: "Muki Ja",
 //     createdAt: 1711490430252,
-//     updatedAt: 1711490430999
+//     updatedAt: 1711490430999,
+//     balance: 100000,
+//     activities: [{txt: 'Added a Todo', at: 152589757}]
 // }
