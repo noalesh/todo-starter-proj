@@ -19,6 +19,9 @@ export function loadTodos() {
 }
 
 export function removeTodo(todoId) {
+    // confirm before removing a todo :
+    const approval = confirm("Are you sure you want to delete this todo? ")
+    if (!approval) return
     return todoService.remove(todoId)
         .then(() => {
             store.dispatch({ type: REMOVE_TODO, todoId })
