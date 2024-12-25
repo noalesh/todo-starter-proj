@@ -6,6 +6,53 @@
     align-items: center;
 }
 
+.importance1{
+    background-color: pink;
+}
+
+.importance1{
+    background-color: rgb(232, 238, 43);
+}
+
+.importance2{
+    background-color: rgb(238, 175, 27);
+}
+
+.importance3{
+    background-color: pink;
+}
+
+.importance4{
+    background-color: rgb(90, 183, 230);
+}
+
+.importance5{
+    background-color: rgb(177, 91, 242);
+}
+
+.importance6{
+    background-color: rgb(128, 230, 184);
+}
+
+.importance7{
+    background-color: rgb(147, 231, 242);
+}
+
+.importance8{
+    background-color: rgb(244, 19, 57);
+    color: aliceblue;
+}
+
+.importance9{
+    background-color: rgb(36, 93, 8);
+    color: aliceblue;
+}
+
+.importance10{
+    background-color: rgb(248, 12, 193);
+}
+
+
 .todo-preview h4 {
     text-transform: capitalize;
     color: black;

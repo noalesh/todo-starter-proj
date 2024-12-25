@@ -14,7 +14,7 @@ export function DataTableRow({ todo, onRemoveTodo }) {
             </td>
             <td>{todo._id}</td>
             <td className={(todo.isDone)? 'done' : ''}>{todo.txt}</td>
-            <td>{todo.importance}</td>
+            <td className={"importance"+todo.importance}>{todo.importance}</td>
             <td>
                 <Link to={`/todo/${todo._id}`}>Details</Link> |
                 <Link to={`/todo/edit/${todo._id}`}>Edit</Link>
