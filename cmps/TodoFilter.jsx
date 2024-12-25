@@ -12,17 +12,17 @@ export function TodoFilter({ filterBy, onSetFilterBy }) {
     function handleChange({ target }) {
         const field = target.name
         let value = target.value
-
         switch (target.type) {
             case 'number':
             case 'range':
                 value = +value || ''
                 break
-
             case 'checkbox':
                 value = target.checked
                 break
-
+            case 'select-one':
+                value = target.value
+                break
             default: break
         }
 
@@ -35,7 +35,15 @@ export function TodoFilter({ filterBy, onSetFilterBy }) {
         onSetFilterBy(filterByToEdit)
     }
 
-    const { txt, importance } = filterByToEdit
+
+
+// TODO - why is the button hidden ? 
+
+    // notes to self:
+    // 'name' is the key in the object we are editing...
+    // 'id' has the same value as in 'htmlFor' becasue it's what connecting them.
+    // vanila 'for' in tage <label> is 'htmlFor' in React.
+    const { txt, importance, activationStatus } = filterByToEdit
     return (
         <section className="todo-filter">
             <h2>Filter Todos</h2>
@@ -47,7 +55,12 @@ export function TodoFilter({ filterBy, onSetFilterBy }) {
                 <input value={importance} onChange={handleChange}
                     type="number" placeholder="By Importance" id="importance" name="importance"
                 />
-
+                <label htmlFor="activationStatus">Status: </label>
+                <select value={activationStatus} id="activationStatus" name="activationStatus" onChange={handleChange}>
+                    <option value="all">All</option>
+                    <option value="active">Active</option>
+                    <option value="done">Done</option>
+                </select>
                 <button hidden>Set Filter</button>
             </form>
         </section>
