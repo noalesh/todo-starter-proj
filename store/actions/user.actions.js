@@ -37,3 +37,15 @@ export function logout() {
             throw err
         })
 }
+
+
+export function addUserBalance(user) {
+    return userService.addUserBalance(user)
+        .then(() => {
+            store.dispatch({ type: SET_USER_BALANCE, user })
+        })
+        .catch((err) => {
+            console.log('user actions -> Cannot set user balance', err)
+            throw err
+        })
+}

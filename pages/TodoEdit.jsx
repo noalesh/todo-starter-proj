@@ -1,13 +1,17 @@
 import { todoService } from "../services/todo.service.js"
+import { userService } from "../services/user.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { removeTodo, saveTodo } from "../store/actions/todo.actions.js"
 
 const { useState, useEffect } = React
 const { useNavigate, useParams } = ReactRouterDOM
+const { useSelector } = ReactRedux
 
 export function TodoEdit() {
 
     const [todoToEdit, setTodoToEdit] = useState(todoService.getEmptyTodo())
+    const user = useSelector(storeState => storeState.userModule.loggedInUser)
+
     const navigate = useNavigate()
     const params = useParams()
 
@@ -33,6 +37,8 @@ export function TodoEdit() {
 
             case 'checkbox':
                 value = target.checked
+                if (value) {
+                    userService.addUserBalance(user)}
                 break
 
             default:
@@ -41,6 +47,7 @@ export function TodoEdit() {
 
         setTodoToEdit(prevTodoToEdit => ({ ...prevTodoToEdit, [field]: value }))
     }
+
 
     function onSaveTodo(ev) {
         ev.preventDefault()

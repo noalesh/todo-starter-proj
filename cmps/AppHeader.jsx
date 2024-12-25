@@ -11,6 +11,9 @@ import { logout } from "../store/actions/user.actions.js"
 export function AppHeader() {
     
     const navigate = useNavigate()
+    // note to self: 
+    // useSelector also register the AppHeader to changes in the loggedInUser
+    // in the store, meaning, it will be rendered if something changed in the user.
     const user = useSelector(storeState => storeState.userModule.loggedInUser)
     
     function onLogout() {
@@ -27,7 +30,9 @@ export function AppHeader() {
                 {user ? (
                     < section >
                         <Link to={`/user/${user._id}`}>Hello {user.fullname} !!</Link>
+                        <div>{"Your balance is: " + user.balance}</div>
                         <button onClick={onLogout}>Logout</button>
+
                     </ section >
                 ) : (
                     <section>

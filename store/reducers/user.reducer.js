@@ -20,7 +20,7 @@ export function userReducer(state = initialState, cmd = {}) {
                 loggedInUser: cmd.user
             }
         case SET_USER_BALANCE:
-            const loggedInUser = { ...state.loggedInUser, balance: cmd.balance }
+            const loggedInUser = { ...state.loggedInUser, balance: cmd.user.balance }
             return { ...state, loggedInUser }
         default:
             return state

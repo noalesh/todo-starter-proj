@@ -8,7 +8,8 @@ export const userService = {
     signup,
     getById,
     query,
-    getEmptyCredentials
+    getEmptyCredentials,
+    addUserBalance
 }
 const STORAGE_KEY_LOGGEDIN = 'user'
 const STORAGE_KEY = 'userDB'
@@ -36,7 +37,7 @@ function signup({ username, password, fullname }) {
 
     const user = { username, password, fullname }
     user.createdAt = user.updatedAt = Date.now()
-
+    user.balance = 0
     // note to self: inside 'post' we assign the user a new id.
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)
@@ -51,8 +52,15 @@ function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN))
 }
 
+function addUserBalance(user) {
+        // get the user from the store and add 10 points to its balance.
+        user.balance += 10
+        return storageService.put(STORAGE_KEY, user)
+            .then(_setLoggedinUser)
+    }
+
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname }
+    const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
 }
