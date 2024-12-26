@@ -2,6 +2,7 @@ import { todoService } from "../services/todo.service.js"
 import { userService } from "../services/user.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { removeTodo, saveTodo } from "../store/actions/todo.actions.js"
+import { addUserBalance } from "../store/actions/user.actions.js"
 
 const { useState, useEffect } = React
 const { useNavigate, useParams } = ReactRouterDOM
@@ -34,13 +35,10 @@ export function TodoEdit() {
             case 'range':
                 value = +value || ''
                 break
-
             case 'checkbox':
                 value = target.checked
-                if (value) {
-                    userService.addUserBalance(user)}
+                if (value) {addUserBalance(user)}
                 break
-
             default:
                 break
         }
